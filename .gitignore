@@ -33,5 +33,4 @@ build/
 .vscode/
 
 # Secure config files (database credentials, etc.)
-src/main/resources/application.properties
 src/main/resources/application.yml
