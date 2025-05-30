@@ -24,10 +24,10 @@ public class Lesson {
     @Column(name = "lesson_code", nullable = false)
     private String lessonCode;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column( name = "title" , nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column( name = "description", nullable = false)
     private String description;
 
     @Column(name = "order_index")
