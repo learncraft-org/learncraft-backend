@@ -1,5 +1,4 @@
 package com.learncraft.backend.model;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +15,6 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "module_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Module module;
 
     @Column(name = "lesson_code", nullable = false)
