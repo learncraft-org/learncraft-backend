@@ -17,15 +17,19 @@ public class LessonDetail {
     private Long id;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(columnDefinition = "TEXT")
     private String note;
 
-    @Column(name = "audio_link")
+    @Column(name = "audio_link", columnDefinition = "TEXT")
     private String audioLink;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", nullable = false)
-    @JsonIgnore // Hide full lesson in response
+    @JsonIgnore
     private Lesson lesson;
 
     @JsonProperty("lessonId")
