@@ -20,7 +20,7 @@ public class LessonService {
     }
 
     public List<Lesson> getByModuleId(Long moduleId) {
-        return repository.findByModuleId(moduleId);
+        return repository.findByModule_IdOrderByOrderIndexAsc(moduleId); // ✅ Updated here
     }
 
     public Lesson save(Lesson lesson) {
