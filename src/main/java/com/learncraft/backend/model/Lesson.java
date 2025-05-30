@@ -14,7 +14,6 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore // Hide raw DB id from JSON
     private Long id;
 
     @ManyToOne
@@ -67,5 +66,9 @@ public class Lesson {
     @JsonProperty("moduleId")
     public Long getModuleId() {
         return module != null ? module.getId() : null;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
