@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeviceLoginService {
@@ -31,13 +32,27 @@ public class DeviceLoginService {
     }
 
     public DeviceLogin registerDeviceLogin(DeviceLoginRequest request) {
-        DeviceLogin deviceLogin = DeviceLogin.builder()
-                .manufacturer(request.getManufacturer())
-                .model(request.getModel())
-                .brand(request.getBrand())
-                .deviceId(request.getDeviceId())
-                .loginAt(LocalDateTime.now())
-                .build();
+        // Find existing device login by deviceId
+        Optional<DeviceLogin> existingDevice = repository.findFirstByDeviceIdOrderByLoginAtDesc(request.getDeviceId());
+
+        DeviceLogin deviceLogin;
+        if (existingDevice.isPresent()) {
+            // Update existing device info
+            deviceLogin = existingDevice.get();
+            deviceLogin.setManufacturer(request.getManufacturer());
+            deviceLogin.setModel(request.getModel());
+            deviceLogin.setBrand(request.getBrand());
+            deviceLogin.setLoginAt(LocalDateTime.now());
+        } else {
+            // Create new device login
+            deviceLogin = DeviceLogin.builder()
+                    .manufacturer(request.getManufacturer())
+                    .model(request.getModel())
+                    .brand(request.getBrand())
+                    .deviceId(request.getDeviceId())
+                    .loginAt(LocalDateTime.now())
+                    .build();
+        }
 
         return repository.save(deviceLogin);
     }
